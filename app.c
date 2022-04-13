@@ -55,6 +55,8 @@
   volatile int BleADVCounter = 0;
   volatile int counter = 0;
 
+  #define SCANNER_RUN_TIME  5
+
 // The advertising set handle allocated from Bluetooth stack.
 static uint8_t advertising_set_handle = 0xff;
 
@@ -159,7 +161,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
       //sl_bt_scanner_set_timing(1,16,0xFFFF);
 
-      sl_bt_system_set_soft_timer(30*32768, 0x22, 0);
+      sl_bt_system_set_soft_timer(SCANNER_RUN_TIME*32768, 0x22, 0);
       sl_bt_scanner_start(1, 1);
 
       break;
@@ -183,7 +185,7 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
    if (evt->data.evt_system_soft_timer.handle == 0x22)
           {
-            
+
              sl_bt_scanner_stop();
           }
    break;
